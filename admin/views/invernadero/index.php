@@ -1,5 +1,9 @@
 <?php require('views/header.php');?>  
   <h1>Invernaderos!</h1>
+  <?php 
+    if(isset($mensaje)):$app->alerta($tipo, $mensaje);endif;
+  
+  ?>
     <a href="invernadero.php?accion=crear" class="btn btn-success">Nuevo Invernadero</a>
     <table class="table">
   <thead>
