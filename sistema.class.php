@@ -1,6 +1,6 @@
 <?php
 
-include('config.class.php');
+require_once('config.class.php');
 
 class Sistema{
     var $con;
@@ -9,7 +9,7 @@ class Sistema{
     }
 
     function alerta($tipo, $mensaje){
-        include ('views/alert.php');
+        require_once ('views/alert.php');
     }
 }
 
