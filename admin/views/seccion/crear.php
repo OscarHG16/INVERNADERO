@@ -33,7 +33,7 @@
     
     <div class="mb-3">
         <label for="">Invernadero</label>
-        <select  class="form-select" aria-label="Default select example" name="data[id_invernadero]" id="">
+        <select class="form-select" name="data[id_invernadero]" id="">
             <?php foreach($invernaderos as $invernadero): ?>
             <?php 
                 $selected = "";
