@@ -3,6 +3,7 @@ require_once ('seccion.class.php');
 require_once ('invernadero.class.php');
 $appInvernadero = new invernadero();
 $app = new seccion();
+$app -> checkRol('Administrador');
 
 /*$app -> conexion();
 print_r($app)
@@ -81,5 +82,5 @@ switch($accion){
         $secciones = $app->readALL(); //Cargamos elementos
         require_once 'views/seccion/index.php';
 }
-
+require_once("views/footer.php");
 ?>
