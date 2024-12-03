@@ -29,6 +29,7 @@ class Usuario extends Sistema {
                     $insertar_rol->execute();
                 }
                 $this->con->commit();
+                $this->sendMail($data['correo'],'Bienvenido a CROPS!', 'Bienvenido al sistema');
                 return $insertar->rowCount(); 
             }
         } catch (Exception $e) {
@@ -57,14 +58,25 @@ class Usuario extends Sistema {
         }
         return false;
     }
-    function delete($id) {
+    function delete($id){
         $this->conexion();
-        $sql ="DELETE FROM usuario WHERE id_usuario = :id_usuario";
-        $borrar = $this->con->prepare($sql);
-        $borrar->bindParam(':id_usuario', $id, PDO::PARAM_INT);
-        $borrar->execute();
-        return $borrar->rowCount();
+        $this->con->beginTransaction();
+        try {
+            $sql = "DELETE FROM usuario_rol WHERE id_usuario = :id_usuario";
+            $borrarRoles = $this->con->prepare($sql);
+            $borrarRoles->bindParam(':id_usuario', $id, PDO::PARAM_INT);
+            $borrarRoles->execute();
+            $sql = "DELETE FROM usuario WHERE id_usuario = :id_usuario";
+            $borrarUsuario = $this->con->prepare($sql);
+            $borrarUsuario->bindParam(':id_usuario', $id, PDO::PARAM_INT);
+            $borrarUsuario->execute();
+            $this->con->commit();
+            return $borrarUsuario->rowCount();
+        } catch (Exception $e) {
+            $this->con->rollBack();
+        }
     }
+    
     function readOne($id) {
         $this->conexion();
         $sql="SELECT * FROM usuario WHERE id_usuario = :id_usuario";

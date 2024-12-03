@@ -10,6 +10,8 @@ switch ($accion) {
         include 'views/permisos/crear.php';
         break;
     case 'nuevo':
+        include ('./servicio_vladi.php');
+        include('./servicio_vane.php');
         $data = $_POST['data'];
         $resultado = $app->create($data);
         if ($resultado) {
@@ -57,7 +59,7 @@ switch ($accion) {
         break;
     default:
         $permisos = $app->readAll();
-        include 'views/permisos/index.php';
+        include ('views/permisos/index.php');
 }
 
 require_once('views/footer.php');

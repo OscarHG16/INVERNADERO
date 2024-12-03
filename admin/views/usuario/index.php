@@ -1,6 +1,6 @@
 <?php require('views/header/header_administrador.php'); ?>
 <h1>Usuarios</h1>
-<?php if (isset($mensaje)) : $app->alert($tipo, $mensaje); endif; ?>
+<?php if (isset($mensaje)) : $app->alerta($tipo, $mensaje); endif; ?>
 <a href="usuario.php?accion=crear" class="btn btn-success">Nuevo</a>
 <table class="table">
     <thead>

@@ -1,7 +1,5 @@
 <?php
     require_once('../sistema.class.php');
-    
-
     $app=new Sistema;    
     $accion = (isset($_GET['accion']))?$_GET['accion']:null;
     

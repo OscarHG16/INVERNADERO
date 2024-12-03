@@ -1,63 +1,84 @@
 <?php
-require_once ('empleado.class.php');
-$app = new Empleado;
-$app -> checkRol('Administrador');
-$accion = (isset($_GET['accion']))?$_GET['accion']:null;
-$id=(isset($_GET['id']))?$_GET['id']:null;
-switch($accion){
+require_once('empleado.class.php');
+require_once('usuario.class.php');
+$appusuario = new usuario();
+$app = new empleado();
+$app->checkRol('Administrador');
+$accion = (isset($_GET['accion'])) ? $_GET['accion'] : null;
+
+$id = (isset($_GET['id'])) ? $_GET['id'] : null;
+switch ($accion) {
     case 'crear':
+        $usuarios = $appusuario->readAll();
         include 'views/empleado/crear.php';
         break;
     case 'nuevo':
-        $data=$_POST['data'];
-        $resultado= $app->create($data);
-        if($resultado){
-            $mensaje="El empleado se agrego correctamente";
-            $tipo="success";
-        }else{
-            $mensaje="Ocurrio un error al agregar el empleado";
-            $tipo="danger";
+        //var_dump($_FILES);
+        //exit; // Detenemos la ejecución para inspeccionar los datos
+        $data = $_POST['data'];
+        $resultado = $app->create($data);
+        if ($resultado) {
+            $mensaje = "El empleado fue dado de alta exitosamente.";
+            $tipo = "success";
+        } else {
+            $mensaje = "Ocurrio un error al agregar al empleado.";
+            $tipo = "danger";
         }
         $empleados = $app->readAll();
         include('views/empleado/index.php');
         break;
     case 'actualizar':
-        $empleados=$app->readOne($id);
+        $empleados = $app->readOne($id);
+        $usuarios = $appusuario->readAll();
         include('views/empleado/crear.php');
         break;
-
     case 'modificar':
-        $data= $_POST['data'];
-        $resultado = $app->update($id,$data);
-        if($resultado){
-            $mensaje="El empleado se modificó correctamente";
-            $tipo="success";
+        $data = $_POST['data'];
+        $resultado = $app->update($id, $data);
+        if ($resultado) {
+            $mensaje = "El empleado se actualizo exitosamente.";
+            $tipo = "success";
         } else {
-            $mensaje="Ocurrió un error al modificar el empleado";
-            $tipo="danger";
+            $mensaje = "Ocurrio un error al actualizar al empleado.";
+            $tipo = "danger";
         }
         $empleados = $app->readAll();
         include('views/empleado/index.php');
         break;
     case 'eliminar':
-        if(!is_null($id)){
-            if(is_numeric($id)){
-                $resultado=$app->delete($id);
-                if($resultado){
-                    $mensaje="Se elimino exitosamente el empleado";
-                    $tipo="success";
-                }else{
-                    $mensaje="Hubo un problema con la eliminacion";
-                    $tipo="danger";
+        if (!is_null($id)) {
+            if (is_numeric($id)) {
+                $resultado = $app->delete($id);
+                if ($resultado) {
+                    $mensaje = "El empleado se elimino correctamente.";
+                    $tipo = "success";
+                } else {
+                    $mensaje = "Ocurrio un error con la eliminacion.";
+                    $tipo = "danger";
                 }
             }
         }
         $empleados = $app->readAll();
-        include 'views/empleado/index.php';
+        include('views/empleado/index.php');
+        break;
+    case 'reporte':
+        if (!is_null($id)) {
+            if (is_numeric($id)) {
+                $resultado = $app->reporte($id);
+                if ($resultado) {
+                    $mensaje = "Reporte exitoso";
+                    $tipo = "success";
+                } else {
+                    $mensaje = "Ocurrio un error al generar un reporte.";
+                    $tipo = "danger";
+                }
+            }
+        }
+        $empleados = $app->readAll();
+        include('views/empleado/index.php');
         break;
     default:
         $empleados = $app->readAll();
         include 'views/empleado/index.php';
 }
-require_once('views/footer.php')
-?>
+require_once('views/footer.php');

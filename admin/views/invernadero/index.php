@@ -1,4 +1,4 @@
-<?php require('views/header.php');?>  
+<?php require('views/header/header_administrador.php');?>  
   <h1>Invernaderos!</h1>
   <?php 
     if(isset($mensaje)):$app->alerta($tipo, $mensaje);endif;
@@ -38,4 +38,4 @@
     <?php endforeach;?>
   </tbody>
 </table>
-<?php require('views/footer.php'); ?> 
+<?php require('views/footer.php'); ?>

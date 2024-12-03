@@ -77,6 +77,10 @@ switch($accion){
         $secciones = $app->readALL();
         require_once ('views/seccion/index.php');
         break;
+    case 'reporte':
+        $app -> reporte();
+        die();
+        break;
 
     default:
         $secciones = $app->readALL(); //Cargamos elementos

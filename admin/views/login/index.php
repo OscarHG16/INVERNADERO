@@ -2,19 +2,16 @@
 
 <div class="login-container">
   <form class="login-form" method="post" action="login.php?accion=login">
-    <!-- Email input -->
     <div data-mdb-input-init class="form-outline mb-4">
       <input type="email" id="form2Example1" class="form-control" name="data[correo]"/>
       <label class="form-label" for="form2Example1">Correo electronico</label>
     </div>
 
-    <!-- Password input -->
     <div data-mdb-input-init class="form-outline mb-4">
       <input type="password" id="form2Example2" class="form-control" name="data[contrasena]" />
       <label class="form-label" for="form2Example2">Contraseña</label>
     </div>
 
-    <!-- 2 column grid layout for inline styling -->
     <div class="row mb-4">
       <div class="col d-flex justify-content-center">
         <div class="form-check">
@@ -28,11 +25,9 @@
       </div>
     </div>
 
-    <!-- Submit button -->
     <input class="btn btn-lg btn-primary" value="Entrar al sistema" name="Enviar" 
     data-mdb-button-init data-mdb-ripple-init type="submit"/>
 
-    <!-- Register buttons -->
     <div class="text-center">
       <p>No tienes cuenta? <a href="#!">Registrarte</a></p>
       <p>or sign up with:</p>
