@@ -1,6 +1,11 @@
 <?php
 require_once ('../sistema.class.php');
 
+use Spipu\Html2Pdf\Html2Pdf;
+use Spipu\Html2Pdf\Exception\Html2PdfException;
+use Spipu\Html2Pdf\Exception\ExceptionFormatter;
+
+
 class empleado extends sistema {
     function create ($data) {
         $result = [];
@@ -28,14 +33,14 @@ class empleado extends sistema {
             $tmp="fotografia=:fotografia";
         }
         $sql = "UPDATE empleado SET nombre = :nombre, primer_apellido = :primer_apellido,
-                segundo_apellido = :segundo_apellido, rfc = :rfc, '.$tmp.'
+                segundo_apellido = :segundo_apellido, rfc = :rfc, $tmp
                 WHERE id_empleado = :id_empleado";
         $modificar = $this->con->prepare($sql);
         $modificar->bindParam(':primer_apellido', $data['primer_apellido'], PDO::PARAM_STR);
         $modificar->bindParam(':segundo_apellido', $data['segundo_apellido'], PDO::PARAM_STR);
         $modificar->bindParam(':nombre', $data['nombre'], PDO::PARAM_STR);
         if($_FILES['fotografia']['error'] != 4){
-        $modificar->bindParam(':fotografia', $fotografia, PDO::PARAM_STR);
+            $modificar->bindParam(':fotografia', $fotografia, PDO::PARAM_STR);
         }
         $modificar->bindParam(':rfc', $data['rfc'], PDO::PARAM_INT);
         $modificar->bindParam(':id_empleado', $id, PDO::PARAM_INT);
@@ -99,7 +104,7 @@ class empleado extends sistema {
     function reporte($id) {
         require_once('../vendor/autoload.php');
         $this->conexion();
-        $sql = 'SELECT * FROM empleados WHERE id_empleado=:id_empleado';
+        $sql = 'SELECT * FROM empleado WHERE id_empleado=:id_empleado';
         $reporte = $this->con->prepare($sql);
         $reporte->bindParam(":id_empleado", $id, PDO::PARAM_INT);
         $reporte->execute();
@@ -109,7 +114,7 @@ class empleado extends sistema {
         
     
         try {
-            include('../libs/phpqrcode/qrlib.php');
+            include('../lib/phpqrcode/qrlib.php');
             
             $file_name = '../qr/'.$id.'.png';
             QRcode::png('http://localhost/crops4/admin/empleado.php?accion=actualizar&id=' .$id, $file_name, 2, 10, 3);
@@ -121,7 +126,7 @@ class empleado extends sistema {
                     <table>
                         <tr>
                             <td>
-                                <img src="../images/descarga.jpg" width="150">
+                                <img src="../images/logotipo_invernadero.png" width="150">
                             </td>
                             <td>
                                 <h1>Empleados</h1>
@@ -139,13 +144,14 @@ class empleado extends sistema {
                         </tr>';
             
             foreach ($data as $seccion) {
+                $fotoPath = "../uploads/" . $seccion['fotografia'];
                 $content .= '<tr>';
                 $content .= '<td>' . $seccion['id_empleado'] . '</td>';
                 $content .= '<td>' . $seccion['primer_apellido'] . '</td>';
                 $content .= '<td>' . $seccion['segundo_apellido'] . '</td>';
                 $content .= '<td>' . $seccion['nombre'] . '</td>';
                 $content .= '<td>' . $seccion['id_usuario'] . '</td>';
-                $content .= '<td><img src="' . $fotoPath . '" width="150" alt="Fotografía del empleado"></td></td>';
+                $content .= '<td><img src="' . $fotoPath . '" width="150" alt="Fotografía del empleado"></td>';
                 $content .= '</tr>';
             }
     
@@ -163,7 +169,7 @@ class empleado extends sistema {
             $html2pdf->setDefaultFont('Arial');
             $html2pdf->writeHTML($content);
             $html2pdf->output('ejemplo.pdf');
-        } catch (HTML2PDF_exception $e) {
+        } catch (Html2PdfException $e) {
             $html2pdf->clean();
     
             $formatter = new ExceptionFormatter($e);

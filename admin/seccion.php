@@ -77,10 +77,22 @@ switch($accion){
         $secciones = $app->readALL();
         require_once ('views/seccion/index.php');
         break;
-    case 'reporte':
-        $app -> reporte();
-        die();
-        break;
+        case 'reporte':
+            if (!is_null($id)) {
+                if (is_numeric($id)) {
+                    $resultado = $app->reporte($id);
+                    if ($resultado) {
+                        $mensaje = "Reporte exitoso";
+                        $tipo = "success";
+                    } else {
+                        $mensaje = "Ocurrio un error al generar un reporte.";
+                        $tipo = "danger";
+                    }
+                }
+            }
+            $secciones = $app->readAll();
+            include('views/seccion/index.php');
+            break;
 
     default:
         $secciones = $app->readALL(); //Cargamos elementos

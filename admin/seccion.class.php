@@ -83,13 +83,16 @@ class seccion extends sistema
     {
         require_once('../vendor/autoload.php');
         $this->conexion();
-        $sql = 'SELECT * FROM vw_secciones';
+        $sql = 'SELECT s.seccion, COUNT(i.id_invernadero) AS num_invernaderos
+                FROM seccion s
+                JOIN invernadero i ON s.id_invernadero = i.id_invernadero
+                GROUP BY s.id_seccion;';
         $consulta = $this->con->prepare($sql);
         $consulta->execute();
         $data = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
         try {
-            include('../libs/phpqrcode/qrlib.php');
+            include('../lib/phpqrcode/qrlib.php');
             $id_factura = rand(1, 1000);
             $file_name = '../qr/' . $id_factura . '.png';
             QRcode::png('http://localhost/crops/facturas/' . $id_factura, $file_name, 2, 10, 3);
@@ -117,7 +120,7 @@ class seccion extends sistema
             foreach ($data as $seccion) {
                 $content .= '<tr>';
                 $content .= '<td>' . $seccion['seccion'] . '</td>';
-                $content .= '<td>' . $seccion['count(i.id_invernadero)'] . '</td>';
+                $content .= '<td>' . $seccion['num_invernaderos'] . '</td>';
                 $content .= '</tr>';
             }
 

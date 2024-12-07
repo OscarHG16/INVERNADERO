@@ -1,6 +1,7 @@
 {
     "require": {
         "phpmailer/phpmailer": "^6.9",
-        "spipu/html2pdf": "^4.6"
+        "tecnickcom/tcpdf": "*",
+        "spipu/html2pdf": "^5.2"
     }
 }

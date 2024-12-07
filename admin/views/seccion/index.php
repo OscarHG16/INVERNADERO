@@ -27,6 +27,7 @@
               class="btn btn-outline-info">Actualizar</a>
               <a href="seccion.php?accion=eliminar&id=<?php echo $seccion['id_seccion'];?>" 
               class="btn btn-outline-danger">Eliminar</a>
+              <a href="seccion.php?accion=reporte&id=<?php echo $seccion['id_seccion']; ?>" class="btn btn-primary">Reporte</a>
           </div>
       </td>
     </tr>
