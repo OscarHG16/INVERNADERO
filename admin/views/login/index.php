@@ -56,12 +56,12 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f5f5f5; /* Opcional: cambiar color de fondo */
+    background-color: #f5f5f5; 
   }
 
   .login-form {
     width: 100%;
-    max-width: 400px; /* Define el tamaño máximo del formulario */
+    max-width: 400px; 
     padding: 20px;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

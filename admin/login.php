@@ -14,8 +14,6 @@
                 $app->checkRol('Administrador');
                 require_once('views/header/header_administrador.php');
                 $app->alerta($tipo,$mensaje);
-                //plantillas personalizas de bienvenida
-                
                 
            }else{
                 $mensaje="Correo o contraseña equivocado 

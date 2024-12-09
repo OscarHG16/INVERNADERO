@@ -130,9 +130,9 @@ class Sistema
         $mail->Port = 465;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->SMTPAuth = true;
-        $mail->Username = '21030090@itcelaya.edu.mx';
-        $mail->Password = 'ovlq sgep iqla hzol';
-        $mail->setFrom('21030090@itcelaya.edu.mx', 'Oscar Hurtado Gonzalez');
+        $mail->Username = 'example@gmail.com';
+        $mail->Password = '';
+        $mail->setFrom('example@gmail.com', 'Oscar Hurtado Gonzalez');
         $mail->addAddress($destinatario, 'Sistema crops');
         $mail->Subject = $asunto;
         $mail->msgHTML($mensaje);
@@ -140,7 +140,6 @@ class Sistema
         if (!$mail->send()) {
             echo 'Mailer Error: ' . $mail->ErrorInfo;
         } else {
-           // echo 'Message sent!';
         }
     }
 }

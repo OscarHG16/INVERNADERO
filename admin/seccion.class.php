@@ -21,9 +21,6 @@ class seccion extends sistema
         $result = $insertar->rowCount();
         //print($result);
         return $result;
-
-        /*print_r($data);
-    die();*/
     }
 
     function update($id, $data)

@@ -2,7 +2,7 @@
 header("Content-type: application/json; charset=utf-8");
 include("permisos.class.php");
 $app = new permisos();
-//$app->checkRol("Administrador");
+$app->checkRol("Administrador");
 $action = $_SERVER['REQUEST_METHOD'];
 $id = (isset($_GET['id']))?$_GET['id']:null;
 $permisos;

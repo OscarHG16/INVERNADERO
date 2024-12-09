@@ -13,8 +13,6 @@ switch ($accion) {
         include 'views/empleado/crear.php';
         break;
     case 'nuevo':
-        //var_dump($_FILES);
-        //exit; // Detenemos la ejecución para inspeccionar los datos
         $data = $_POST['data'];
         $resultado = $app->create($data);
         if ($resultado) {
